@@ -1,0 +1,136 @@
+// SYNAPSE - A Gateway of Intelligent Perception for Traffic Management
+// Copyright (C) 2026 Noxfort Systems
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
+// File: proto/synapse_hft.proto
+// Author: Gabriel Moraes
+// Date: 2026-02-19
+
+syntax = "proto3";
+
+package synapse.hft;
+
+// -----------------------------------------------------------------------
+// SERVICE DEFINITION
+// -----------------------------------------------------------------------
+service HFTLink {
+  rpc Ping (Empty) returns (SystemState);
+  rpc LoadScenario (ScenarioDefinition) returns (ScenarioStatus);
+  rpc SystemControl (ControlCommand) returns (CommandResponse);
+  rpc StreamTraffic (stream TrafficFrame) returns (SystemState);
+}
+
+// -----------------------------------------------------------------------
+// MESSAGES: COMMON
+// -----------------------------------------------------------------------
+message Empty {}
+
+message SystemState {
+  bool active = 1;
+  string state = 2;
+  uint64 server_time = 3;
+}
+
+// -----------------------------------------------------------------------
+// MESSAGES: TOPOLOGY
+// -----------------------------------------------------------------------
+message ScenarioDefinition {
+  string map_hash = 1;
+  
+  TopologyGraph graph = 2;
+  MapGeometry geometry = 3;
+  
+  // Binary Content Transfer
+  bytes map_file_content = 4;
+  
+  // Ensures the receiver knows the exact file format and name (e.g., .net.xml.gz)
+  string map_file_name = 5;
+  
+  // Extracted offline schedule by the Peak Classifier ADAGIO agent
+  string peak_schedule_json = 6;
+}
+
+message TopologyGraph {
+  repeated TopologyNode nodes = 1;
+  repeated TopologyEdge edges = 2;
+}
+
+message TopologyNode {
+  string id = 1;
+  string type = 2; // e.g. "traffic_light"
+  double x = 3;
+  double y = 4;
+  
+  // Traffic Light Logic ID
+  // If present, indicates this node is controlled by a TLS.
+  // Used by the Receiver (Mock) to draw/identify traffic lights.
+  string tl_logic_id = 5;
+}
+
+message TopologyEdge {
+  string id = 1;
+  string source_node = 2;
+  string target_node = 3;
+  double length = 4;
+  int32 lanes = 5;
+  double max_speed = 6;
+  int32 signal_group_id = 7;
+}
+
+message MapGeometry {
+  repeated MapShape shapes = 1;
+}
+
+message MapShape {
+  string edge_id = 1;
+  repeated double coords = 2;
+}
+
+message ScenarioStatus {
+  bool accepted = 1;
+  string message = 2;
+}
+
+// -----------------------------------------------------------------------
+// MESSAGES: CONTROL & TELEMETRY
+// -----------------------------------------------------------------------
+message ControlCommand {
+  enum Action {
+    UNKNOWN = 0;
+    START = 1;
+    PAUSE = 2;
+    STOP = 3;
+    RESET = 4;
+  }
+  Action action = 1;
+}
+
+message CommandResponse {
+  bool success = 1;
+  string new_state = 2;
+}
+
+message TrafficFrame {
+  double timestamp = 1;
+  uint64 sequence_id = 2;
+  map<string, EdgeState> edges = 3;
+}
+
+message EdgeState {
+  float occupancy = 1;
+  float mean_speed = 2;
+  int32 queue_length = 3;
+  float density = 4;
+}

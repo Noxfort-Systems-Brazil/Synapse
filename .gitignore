@@ -1,0 +1,49 @@
+# Virtual Environments
+/.venv/
+venv/
+env/
+.env
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build and Distribution
+build/
+dist/
+*.egg-info/
+*.egg
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and Databases
+*.log
+*.sqlite3
+*.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Large Model Files
+*.safetensors
+*.bin
+*.h5
+*.pt
+*.pth
+*.onnx
+
+# Ignore Model Vault contents but keep the directory structure
+Model Vault/*
+!Model Vault/.gitkeep
+
+# OS generated files
+.DS_Store
+Thumbs.db

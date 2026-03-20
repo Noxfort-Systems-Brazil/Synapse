@@ -1,0 +1,76 @@
+{
+  "themes": {
+    "dark": {
+      "primary": "#3498DB",
+      "success": "#28a745",
+      "danger": "#E74C3C",
+      "warning": "#F1C40F",
+      "status_online": "#2ECC71",
+      "active_sources": "#3498DB",
+      "psi_score": "#F1C40F",
+      "latency": "#9B59B6",
+      "map_node": "#E74C3C",
+      "map_edge": "#4A4A4A",
+      "map_select_free": "#2ECC71",
+      "map_select_assoc": "#E74C3C",
+      "background_light": "#1A1A1A",
+      "background_hover": "#333333",
+      "card_background": "#2D2D2D",
+      "card_border": "#3E3E3E",
+      "text_main": "#E0E0E0",
+      "text_dark": "#333333",
+      "text_muted": "#AAAAAA",
+      "combo_bg": "#1A1A1A",
+      "combo_border": "#555"
+    },
+    "light": {
+      "primary": "#3B82F6",
+      "success": "#10B981",
+      "danger": "#EF4444",
+      "warning": "#F59E0B",
+      "status_online": "#10B981",
+      "active_sources": "#3B82F6",
+      "psi_score": "#F59E0B",
+      "latency": "#8B5CF6",
+      "map_node": "#EF4444",
+      "map_edge": "#94A3B8",
+      "map_select_free": "#10B981",
+      "map_select_assoc": "#EF4444",
+      "background_light": "#F0F4F8",
+      "background_hover": "#E2E8F0",
+      "card_background": "#FFFFFF",
+      "card_border": "#E2E8F0",
+      "text_main": "#334155",
+      "text_dark": "#1E293B",
+      "text_muted": "#64748B",
+      "combo_bg": "#FFFFFF",
+      "combo_border": "#CBD5E1"
+    }
+  },
+  "fonts": {
+    "family": "Arial",
+    "title_size": 14,
+    "subtitle_size": 12,
+    "body_size": 10
+  },
+  "sizes": {
+    "button_padding": "15px",
+    "border_radius": "6px",
+    "map_node_radius": 5.0,
+    "map_edge_width": 4.0,
+    "font_size_small": "9pt",
+    "font_size_large": "16pt",
+    "font_size_section": "11pt"
+  },
+  "styles": {
+    "card_frame": "QFrame {{ background-color: palette(window); border-radius: 6px; border: 1px solid palette(button); }}",
+    "card_title": "color: palette(text); font-size: 9pt; border: none;",
+    "card_value": "color: {color}; font-size: 16pt; font-weight: bold; border: none;",
+    "section_title": "font-size: 11pt; font-weight: bold; color: palette(text);",
+    "progress_bar_chunk": "QProgressBar::chunk {{ background-color: {color}; }}",
+    "group_box_title": "QGroupBox {{ font-weight: bold; color: palette(highlight); }}",
+    "console_log": "background-color: palette(window); color: palette(text); font-family: monospace;",
+    "danger_text": "color: palette(bright-text); font-weight: bold; margin-top: 10px;",
+    "combo_box": "background-color: palette(base); color: palette(text); border: 1px solid palette(button);"
+  }
+}

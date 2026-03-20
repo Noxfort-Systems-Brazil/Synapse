@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 10s       # How frequently to scrape targets by default
+  evaluation_interval: 10s   # How frequently to evaluate rules
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'synapse-telemetry'
+    metrics_path: '/'
+    scheme: 'http'
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    static_configs:
+      # Since Prometheus is running in Docker and Synapse is running on the Host OS, 
+      # we target the special DNS name host.docker.internal to bridge out of the container.
+      # If host.docker.internal fails on some Linux setups, we will document using the real host IP.
+      - targets: ['host.docker.internal:8000', '172.17.0.1:8000']

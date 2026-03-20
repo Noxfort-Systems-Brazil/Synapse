@@ -1,0 +1,9 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    url: http://prometheus:9090 # This points to the other docker container named 'prometheus'
+    access: proxy
+    isDefault: true
+    editable: true
